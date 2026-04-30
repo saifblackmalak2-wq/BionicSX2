@@ -63,6 +63,9 @@ extern u8 iopHw[]; // Global IOP Memory Array
 extern int g_iop3204_test_val; // Defined in IopHwRead.cpp
 #define ENABLE_TRACE 1
 
+// Forward declaration for recClear, defined later in this file.
+extern void recClear(u32 addr, u32 size);
+
 // Direct Logging Helper
 extern "C" void LogUnified(const char* fmt, ...);
 
