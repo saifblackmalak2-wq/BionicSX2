@@ -129,9 +129,6 @@ _vifT static __fi bool vifTransfer(u32 *data, int size, bool TTE) {
 
 		if(!vifXch.qwc)
 		{
-			// [DIAGNOSTIC] VIF transfer complete - log and clear cache
-			Console.WriteLn("@@DMA_CLEAR_VIF idx=%d addr=%08x size=%x", idx, transfer_addr, transferred * 16);
-			Cpu->Clear(transfer_addr, transferred * 4);  // transferred is in qw, convert to dwords
 			vifX.inprogress &= ~0x1;
 		}
 		else if (vifX.irqoffset.value != 0)

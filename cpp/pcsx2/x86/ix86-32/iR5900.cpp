@@ -63,9 +63,6 @@ extern u8 iopHw[]; // Global IOP Memory Array
 extern int g_iop3204_test_val; // Defined in IopHwRead.cpp
 #define ENABLE_TRACE 1
 
-// Forward declaration for recClear, defined later in this file.
-extern void recClear(u32 addr, u32 size);
-
 // Direct Logging Helper
 extern "C" void LogUnified(const char* fmt, ...);
 
@@ -1866,10 +1863,6 @@ void R5900::Dynarec::OpcodeImpl::recSYSCALL()
 		if (g_cpuConstRegs[3].UC[0] == 0x64 || g_cpuConstRegs[3].UC[0] == 0x68)
 		{
 			s_nBlockCycles += 5650;
-			// SAFE DIAGNOSTIC ONLY - NO CACHE INVALIDATION
-			u32 a0_val = cpuRegs.GPR.r[4].UL[0];
-			u32 a1_val = cpuRegs.GPR.r[5].UL[0];
-			Console.WriteLn("@@FLUSHCACHE pc=%08x a0=%08x a1=%08x", cpuRegs.pc, a0_val, a1_val);
 			return;
 		}
 	}

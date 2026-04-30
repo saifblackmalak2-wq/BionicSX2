@@ -178,10 +178,6 @@ void IPU0dma()
 	readsize = std::min(ipu0ch.qwc, (u32)ipuRegs.ctrl.OFC);
 	ipu_fifo.out.read(pMem, readsize);
 
-	// [FIX] ARM64/iOS: Invalidate JIT cache after IPU output to EE memory
-	// This prevents stale JIT blocks from executing when IPU writes code/data
-	Cpu->Clear(ipu0ch.madr, readsize * 16);
-
 	ipu0ch.madr += readsize << 4;
 	ipu0ch.qwc -= readsize;
 
