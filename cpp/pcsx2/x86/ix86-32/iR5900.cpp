@@ -1866,26 +1866,10 @@ void R5900::Dynarec::OpcodeImpl::recSYSCALL()
 		if (g_cpuConstRegs[3].UC[0] == 0x64 || g_cpuConstRegs[3].UC[0] == 0x68)
 		{
 			s_nBlockCycles += 5650;
-			
-			// [DIAGNOSTIC] Read a0 (type) and a1 (address) from guest registers
-			u32 a0_val = cpuRegs.GPR.r[4].UL[0];  // a0
-			u32 a1_val = cpuRegs.GPR.r[5].UL[0];  // a1
-			
-			Console.WriteLn("@@FLUSHCACHE pc=%08x a0=%08x a1=%08x", cpuRegs.pc, a0_val, a1_val);
-			
-			// Smart FlushCache: if a1 holds a valid address, clear that region
-			// Otherwise fall back to full reset for safety
-			if (a1_val != 0 && a1_val < 0x02000000)
-			{
-				// Clear around the address with a fixed size (4096 bytes = 1024 dwords)
-				recClear(a1_val, 0x1000);
-			}
-			else
-			{
-				// Full reset as fallback
-				iFlushCall(FLUSH_EVERYTHING);
-				armEmitCall(reinterpret_cast<void*>(recResetRaw));
-			}
+			// SAFE DIAGNOSTIC ONLY - NO CACHE INVALIDATION
+			u32 a0_val = cpuRegs.GPR.r[4].UL[0];
+			u32 a1_val = cpuRegs.GPR.r[5].UL[0];
+			Console.WriteLine("@@FLUSHCACHE pc=%08x a0=%08x a1=%08x", cpuRegs.pc, a0_val, a1_val);
 			return;
 		}
 	}
