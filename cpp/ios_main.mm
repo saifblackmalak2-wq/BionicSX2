@@ -1384,11 +1384,11 @@ INISettingsInterface* g_p44_settings_interface = nullptr;
     EmuFolders::Logs = dataRoot + "/logs";
 
     // --- Unified Logging Redirection ---
-    // Force stderr and stdout to pcsx2_log.txt
-    std::string logPath = dataRoot + "/pcsx2_log.txt";
+    // Force stderr and stdout to JIT_Diag_Log.txt
+    std::string logPath = dataRoot + "/JIT_Diag_Log.txt";
     
     // Redirect stderr to file
-    if (freopen(logPath.c_str(), "w", stderr) == NULL) { // "w" clears old logs
+    if (freopen(logPath.c_str(), "a", stderr) == NULL) { // "a" appends logs
         printf("Reopen stderr failed\n");
     }
     
@@ -1416,7 +1416,7 @@ INISettingsInterface* g_p44_settings_interface = nullptr;
     NSString* bID = [[NSBundle mainBundle] bundleIdentifier];
     const char* cBundle = bID ? [bID UTF8String] : "(null)";
     fprintf(stderr, "@@BIOS_GATE@@ build_id=2026-01-17_PROBE bundle=%s\n", cBundle);
-    fprintf(stderr, "@@LOG_UNIFIED@@ pcsx2_log.txt includes emulog output; emulog.txt disabled=1\n");
+    fprintf(stderr, "@@LOG_UNIFIED@@ JIT_Diag_Log.txt includes emulog output; emulog.txt disabled=1\n");
     
 // DYLD Map — debug builds only
 #if DEBUG
