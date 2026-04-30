@@ -1869,7 +1869,7 @@ void R5900::Dynarec::OpcodeImpl::recSYSCALL()
 			// SAFE DIAGNOSTIC ONLY - NO CACHE INVALIDATION
 			u32 a0_val = cpuRegs.GPR.r[4].UL[0];
 			u32 a1_val = cpuRegs.GPR.r[5].UL[0];
-			Console.WriteLine("@@FLUSHCACHE pc=%08x a0=%08x a1=%08x", cpuRegs.pc, a0_val, a1_val);
+			Console.WriteLn("@@FLUSHCACHE pc=%08x a0=%08x a1=%08x", cpuRegs.pc, a0_val, a1_val);
 			return;
 		}
 	}
