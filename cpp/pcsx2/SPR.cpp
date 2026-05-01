@@ -141,6 +141,7 @@ int  _SPR0chain()
 		// the cycle delay out of the way before the end.
 		partialqwc = std::min(spr0ch.qwc, 0x400 - ((spr0ch.sadr & 0x3fff) >> 4));
 		memcpy_from_spr((u8*)pMem, spr0ch.sadr, partialqwc*16);
+		Cpu->Clear(spr0ch.madr, partialqwc * 16);
 
 		// Clear VU mem also!
 		TestClearVUs(spr0ch.madr, partialqwc, true);
@@ -206,6 +207,7 @@ void _SPR0interleave()
 				// Clear VU mem also!
 				TestClearVUs(spr0ch.madr, spr0ch.qwc, true);
 				memcpy_from_spr((u8*)pMem, spr0ch.sadr, spr0ch.qwc*16);
+				Cpu->Clear(spr0ch.madr, spr0ch.qwc * 16);
 				break;
  		}
 		spr0ch.sadr += spr0ch.qwc * 16;

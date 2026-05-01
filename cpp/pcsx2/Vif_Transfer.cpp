@@ -129,6 +129,7 @@ _vifT static __fi bool vifTransfer(u32 *data, int size, bool TTE) {
 
 		if(!vifXch.qwc)
 		{
+			Cpu->Clear(transfer_addr, transferred * 16);
 			vifX.inprogress &= ~0x1;
 		}
 		else if (vifX.irqoffset.value != 0)
